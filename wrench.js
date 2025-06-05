@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrench
 // @namespace    https://github.com/Th3rdMan
-// @version      2.5
+// @version      2.5.1
 // @description  Analyse passive d’un site web : robots.txt, métadonnées, IP, DNS et outils OSINT.
 // @author       Th3rd
 // @match        *://*/*
@@ -99,31 +99,30 @@
             onload: res => {
                 const data = JSON.parse(res.responseText);
                 if (!data.Answer) return content.innerHTML = 'Aucune IP trouvée.';
-               const aRecords = data.Answer.filter(a => a.type === 1); // type 1 = A record
-if (aRecords.length === 0) return content.innerHTML = 'Aucune IP trouvée.';
+                const aRecords = data.Answer.filter(a => a.type === 1);
+                if (aRecords.length === 0) return content.innerHTML = 'Aucune IP trouvée.';
 
-content.innerHTML = 'Chargement des infos IP...';
+                content.innerHTML = 'Chargement des infos IP...';
 
-// Pour chaque IP trouvée, lance une requête whois
-Promise.all(
-    aRecords.map(a =>
-        new Promise(resolve => {
-            const ip = a.data;
-            GM_xmlhttpRequest({
-                method: 'GET',
-                url: `https://ipwhois.app/json/${ip}`,
-                onload: r => {
-                    const g = JSON.parse(r.responseText);
-                    const f = g.country_code ? ` <img src='https://flagcdn.com/16x12/${g.country_code.toLowerCase()}.png' style='vertical-align:middle;'>` : '';
-                    resolve(`IP : ${ip}\nPays : ${g.country} (${g.country_code})${f}\nASN : ${g.org}`);
-                },
-                onerror: () => resolve(`IP : ${ip}\nLocalisation indisponible.`)
-            });
-        })
-    )
-).then(results => {
-    content.innerHTML = results.join('\n\n');
-});
+                Promise.all(
+                    aRecords.map(a =>
+                        new Promise(resolve => {
+                            const ip = a.data;
+                            GM_xmlhttpRequest({
+                                method: 'GET',
+                                url: `https://ipwhois.app/json/${ip}`,
+                                onload: r => {
+                                    const g = JSON.parse(r.responseText);
+                                    const f = g.country_code ? ` <img src='https://flagcdn.com/16x12/${g.country_code.toLowerCase()}.png' style='vertical-align:middle;'>` : '';
+                                    resolve(`IP\u00a0: ${ip}\nPays\u00a0: ${g.country} (${g.country_code})${f}\nASN\u00a0: ${g.org}`);
+                                },
+                                onerror: () => resolve(`IP\u00a0: ${ip}\nLocalisation indisponible.`)
+                            });
+                        })
+                    )
+                ).then(results => {
+                    content.innerHTML = results.join('\n\n');
+                });
             },
             onerror: () => content.innerHTML = 'Erreur DNS.'
         });
