@@ -29,9 +29,9 @@ Ce script vise une **analyse passive** :
 
 1. Installe une extension compatible comme [Tampermonkey](https://www.tampermonkey.net/)
 2. Ouvre ce lien :  
-   [Installer Wrench](https://raw.githubusercontent.com/Th3rdMan/wrench-userscript/main/wrench.user.js) *(remplacer par GreasyFork si publié)*
-3. Active le script et navigue !
-
+   [Installer Wrench](https://greasyfork.org/fr/scripts/538478-wrench)
+3. Active le script
+   
 ## ✍️ Auteur
 
 **Th3rd**  
