@@ -1,5 +1,11 @@
 # 🛠 Wrench – Analyse passive OSINT sur navigateur
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Version](https://img.shields.io/badge/version-2.4-green.svg)](https://github.com/Th3rdMan/wrench-userscript)
+[![Install Wrench on GreasyFork](https://img.shields.io/badge/Install-GreasyFork-red.svg)](https://greasyfork.org/fr/scripts/538478-wrench)  
+[![Author: Th3rd](https://img.shields.io/badge/github-Th3rdMan-181717?logo=github)](https://github.com/Th3rdMan)
+
+
 **Wrench** est un script utilisateur léger conçu pour afficher des informations clés sur le site web visité, directement dans votre navigateur, sans interaction active avec le serveur cible.
 
 ## 🔍 Fonctionnalités
