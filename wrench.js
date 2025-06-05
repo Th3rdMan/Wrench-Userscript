@@ -8,6 +8,7 @@
 // @grant        GM_xmlhttpRequest
 // @connect      *
 // @run-at       document-end
+// @license      GPL-3.0
 // ==/UserScript==
 
 (function () {
