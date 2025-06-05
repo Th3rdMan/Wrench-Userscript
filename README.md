@@ -1,7 +1,7 @@
 # 🛠 Wrench – Analyse passive OSINT sur navigateur
 
-![Version](https://img.shields.io/badge/version-2.5-blue)
-![License](https://img.shields.io/badge/license-GPLv3-blue)
+![Version](https://img.shields.io/badge/Version-2.5-blue)
+![License](https://img.shields.io/badge/License-GPLv3-blue)
 [![Install Wrench on GreasyFork](https://img.shields.io/badge/Install-GreasyFork-red.svg)](https://greasyfork.org/fr/scripts/538478-wrench)  
 [![Author: Th3rd](https://img.shields.io/badge/github-Th3rdMan-181717?logo=github)](https://github.com/Th3rdMan)
 
