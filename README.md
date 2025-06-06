@@ -11,55 +11,53 @@
 
 ## 🔍 Fonctionnalités
 
-- 📜 Lecture intelligente du fichier **`robots.txt`** :
-  - Coloration des règles (`Allow`, `Disallow`, `User-agent`)
-  - Détection et affichage des `Sitemap`
-- 🧠 Extraction des **métadonnées HTML** :
-  - Titre, description, auteur, lien canonique
-- 🌍 Résolution **DNS** et géolocalisation **IP** :
-  - Adresse IP, pays, ASN et organisation
-- 🧱 Analyse du **code source** :
-  - Extraction des **commentaires HTML**
-  - Recherche et affichage des **adresses e-mail**
-- 🧰 Accès rapide à des outils OSINT externes :
-  - [`urlscan.io`](https://urlscan.io), [`Shodan`](https://shodan.io), [`Hunter.io`](https://hunter.io), [`Who.is`](https://who.is), [`Wayback Machine`](https://web.archive.org)
+- 📜 **Lecture intelligente de `robots.txt`**  
+  Coloration syntaxique (`Allow`, `Disallow`, `User-agent`) et affichage des `Sitemap`
+- 🧠 **Extraction des métadonnées HTML**  
+  Titre, description, auteur, lien canonique
+- 🌍 **Résolution DNS & géolocalisation IP**  
+  Adresse IP, pays (avec drapeau), ASN, organisation
+- 🧱 **Analyse du code source**  
+  Extraction des commentaires HTML + adresses e-mail
+- 🧰 **Outils OSINT intégrés**  
+  Accès direct à [`urlscan.io`](https://urlscan.io), [`Shodan`](https://shodan.io), [`Hunter.io`](https://hunter.io), [`Who.is`](https://who.is), [`Wayback Machine`](https://web.archive.org)
 
 ---
 
 ## 🎯 Objectif
 
-Un outil 100 % **passif**, pensé pour les passionnés de veille, de sécurité ou d’OSINT :
+🔒 Un outil 100 % **passif**, pensé pour les passionnés de cybersécurité, d’enquêtes en ligne et de veille :
 
-- Sans requête intrusive vers le site visité
-- Sans injection ni modification du contenu
-- Sans collecte de données
+- Aucune requête intrusive vers le site visité  
+- Aucune modification ou injection de contenu  
+- Aucune collecte ou transmission de données
 
 ---
 
 ## 📦 Installation
 
-1. Installe une extension comme [Tampermonkey](https://www.tampermonkey.net)
-2. Ouvre ce lien pour installer le script : [GreasyFork – Wrench](https://greasyfork.org/fr/scripts/538478-wrench)
-
-## 🧰 Tutoriel d’utilisation
-
-1. **Navigue sur un site**  
-   → Le script se déclenche automatiquement.
-
-2. **Clique sur l’icône Wrench en haut à droite**  
-   ![Wrench Icon](https://github.com/Th3rdMan/wrench-userscript/blob/main/wrench.png)
-
-3. **Explore les onglets du panneau** :
-   - `Robots.txt` → directives et sitemaps
-   - `Métadonnées` → infos de la page HTML
-   - `IP / DNS` → géolocalisation et ASN
-   - `Code source` → commentaires + adresses email
-   - `Outils externes` → raccourcis vers sites OSINT
+1. Installe une extension telle que [Tampermonkey](https://www.tampermonkey.net)
+   > *(Pense à activer le mode développeur dans Tampermonkey si nécessaire)*  
+3. Clique ici pour installer le script : [GreasyFork – Wrench](https://greasyfork.org/fr/scripts/538478-wrench)
 
 ---
 
-> Le script est **entièrement passif** : aucune action sur le site, ni trace, ni modification.
+## 🧭 Tutoriel d’utilisation
 
+1. **Navigue sur un site web**  
+   Le script s’exécute automatiquement à chaque chargement de page.
+
+2. **Clique sur l’icône Wrench (🔧) en haut à droite**  
+   ![Wrench Icon](https://github.com/Th3rdMan/wrench-userscript/blob/main/wrench.png)
+
+3. **Explore les modules proposés :**
+   - `Robots.txt` → Règles d’exploration + sitemap
+   - `Métadonnées` → Infos internes HTML
+   - `IP / DNS` → Adresse IP + géoloc + ASN
+   - `Code source` → Commentaires + e-mails
+   - `Outils externes` → Ouvre les plateformes OSINT dans un nouvel onglet
+
+🦏 *Si rien n’apparaît, c’est que le site est soit minimaliste, soit bien protégé.*
 
 ---
 
@@ -70,4 +68,4 @@ Un outil 100 % **passif**, pensé pour les passionnés de veille, de sécurit�
 
 ---
 
-> Projet personnel librement partageable. Tu peux proposer des idées ou améliorer le script via une Pull Request.
+> 📘 Script libre sous licence GPLv3. Contributions, suggestions ou pull requests bienvenues !
