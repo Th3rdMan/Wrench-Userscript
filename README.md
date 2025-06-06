@@ -47,7 +47,7 @@ Un outil 100 % **passif**, pensé pour les passionnés de veille, de sécurit�
    → Le script se déclenche automatiquement.
 
 2. **Clique sur l’icône Wrench en haut à droite**  
-   ![Wrench Icon](https://github.com/Th3rdMan/wrench-userscript/edit/main/Wrench.png)
+   ![Wrench Icon](https://github.com/Th3rdMan/wrench-userscript/blob/main/wrench.png)
 
 3. **Explore les onglets du panneau** :
    - `Robots.txt` → directives et sitemaps
