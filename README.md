@@ -6,7 +6,7 @@
 [![Author: Th3rd](https://img.shields.io/badge/github-Th3rdMan-181717?logo=github)](https://github.com/Th3rdMan)
 
 
-**Wrench** est un script utilisateur léger conçu pour afficher des informations clés sur le site web visité, directement dans votre navigateur, sans interaction active avec le serveur cible.
+**Wrench** est un script utilisateur léger conçu pour afficher des informations clés sur le site web visité, directement dans le navigateur, sans interaction active avec le serveur cible.
 
 ## 🔍 Fonctionnalités
 
@@ -28,8 +28,7 @@ Ce script vise une **analyse passive** :
 ## 📦 Installation
 
 1. Installe une extension compatible comme [Tampermonkey](https://www.tampermonkey.net/)
-2. Ouvre ce lien :  
-   [Installer Wrench](https://greasyfork.org/fr/scripts/538478-wrench)
+2. Ouvre ce lien : [Installer Wrench](https://greasyfork.org/fr/scripts/538478-wrench)
 3. Active le script
    
 ## ✍️ Auteur
