@@ -6,6 +6,15 @@
 // @author       Th3rd
 // @match        *://*/*
 // @grant        GM_xmlhttpRequest
+// @connect      ipwhois.app
+// @connect      dns.google
+// @connect      www.google.com
+// @connect      urlscan.io
+// @connect      shodan.io
+// @connect      hunter.io
+// @connect      who.is
+// @connect      crt.sh
+// @connect      web.archive.org
 // @grant        unsafeWindow
 // @connect      *
 // @run-at       document-end
@@ -148,7 +157,13 @@
             { name: 'WHOIS', url: `https://who.is/whois/${d}` },
             { name: 'Wayback Machine', url: `https://web.archive.org/web/*/${d}` }
         ];
-        content.innerHTML = tools.map(t => `<div style="display:flex;align-items:center;gap:6px;margin:0;"><img src="https://www.google.com/s2/favicons?sz=16&domain=${t.url}" style="margin:0;"><a href="${t.url}" target="_blank" style="color:#6cf">${t.name}</a></div>`).join('');
+        content.innerHTML = tools.map(t => `
+         <div style="display:flex;align-items:center;gap:6px;margin:0;">
+         <img src="https://www.google.com/s2/favicons?sz=16&domain=${t.url}"
+         style="margin:0;" width="16" height="16"
+         onerror="this.style.display='none'">
+         <a href="${t.url}" target="_blank" style="color:#6cf">${t.name}</a>
+         </div>`).join('');    
     }
 
     function escapeHTML(str) {
