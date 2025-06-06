@@ -157,10 +157,16 @@
             { name: 'WHOIS', url: `https://who.is/whois/${d}` },
             { name: 'Wayback Machine', url: `https://web.archive.org/web/*/${d}` }
         ];
-content.innerHTML = tools.map(t =>
-  `<div><a href="${t.url}" target="_blank" style="color:#6cf">${t.name}</a></div>`
-).join('');   
-    }
+    content.innerHTML = tools.map(t => `
+content.innerHTML = tools.map(t => `
+  <div style="display:flex;align-items:center;gap:6px;margin:0;">
+    <img src="https://www.google.com/s2/favicons?sz=16&domain=${t.url}"
+         style="margin:0;" width="16" height="16"
+         onerror="this.remove()">
+    <a href="${t.url}" target="_blank" style="color:#6cf">${t.name}</a>
+  </div>
+`).join('');
+
 
     function escapeHTML(str) {
         return str.replace(/[&<>'"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[c]));
