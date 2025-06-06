@@ -47,9 +47,10 @@
 1. **Navigue sur un site web**  
    Le script s’exécute automatiquement à chaque chargement de page.
 
-2. **Clique sur l’icône Wrench (![Wrench Icon](https://github.com/Th3rdMan/wrench-userscript/blob/main/wrench.png)) en haut à droite**  
+2. **Clique sur l’icône Wrench en haut à droite**  
+![Wrench Icon](https://github.com/Th3rdMan/wrench-userscript/blob/main/wrench.png)
 
-3. **Explore les modules proposés :**
+4. **Explore les modules proposés :**
    - `Robots.txt` → Règles d’exploration + sitemap
    - `Métadonnées` → Infos internes HTML
    - `IP / DNS` → Adresse IP + géoloc + ASN
