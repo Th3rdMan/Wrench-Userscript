@@ -13,12 +13,13 @@
 // @connect      shodan.io
 // @connect      hunter.io
 // @connect      who.is
-// @connect      crt.sh
 // @connect      web.archive.org
 // @grant        unsafeWindow
 // @connect      *
 // @run-at       document-end
 // @license      GPL-3.0
+// @downloadURL https://update.greasyfork.org/scripts/538478/Wrench.user.js
+// @updateURL https://update.greasyfork.org/scripts/538478/Wrench.meta.js
 // ==/UserScript==
 
 (function () {
@@ -28,6 +29,43 @@
     const ICON_CLOSE = 'data:image/png;base64,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';
     const baseUrl = location.origin;
     const robotsUrl = `${baseUrl}/robots.txt`;
+    // flagcdn bloqué par CSP
+    const FLAG_EMOJIS = {
+        "AD": "🇦🇩", "AE": "🇦🇪", "AF": "🇦🇫", "AG": "🇦🇬", "AI": "🇦🇮", "AL": "🇦🇱", "AM": "🇦🇲", "AO": "🇦🇴",
+        "AR": "🇦🇷", "AS": "🇦🇸", "AT": "🇦🇹", "AU": "🇦🇺", "AW": "🇦🇼", "AX": "🇦🇽", "AZ": "🇦🇿", "BA": "🇧🇦",
+        "BB": "🇧🇧", "BD": "🇧🇩", "BE": "🇧🇪", "BF": "🇧🇫", "BG": "🇧🇬", "BH": "🇧🇭", "BI": "🇧🇮", "BJ": "🇧🇯",
+        "BL": "🇧🇱", "BM": "🇧🇲", "BN": "🇧🇳", "BO": "🇧🇴", "BQ": "🇧🇶", "BR": "🇧🇷", "BS": "🇧🇸", "BT": "🇧🇹",
+        "BV": "🇧🇻", "BW": "🇧🇼", "BY": "🇧🇾", "BZ": "🇧🇿", "CA": "🇨🇦", "CC": "🇨🇨", "CD": "🇨🇩", "CF": "🇨🇫",
+        "CG": "🇨🇬", "CH": "🇨🇭", "CI": "🇨🇮", "CK": "🇨🇰", "CL": "🇨🇱", "CM": "🇨🇲", "CN": "🇨🇳", "CO": "🇨🇴",
+        "CR": "🇨🇷", "CU": "🇨🇺", "CV": "🇨🇻", "CW": "🇨🇼", "CX": "🇨🇽", "CY": "🇨🇾", "CZ": "🇨🇿", "DE": "🇩🇪",
+        "DJ": "🇩🇯", "DK": "🇩🇰", "DM": "🇩🇲", "DO": "🇩🇴", "DZ": "🇩🇿", "EC": "🇪🇨", "EE": "🇪🇪", "EG": "🇪🇬",
+        "EH": "🇪🇭", "ER": "🇪🇷", "ES": "🇪🇸", "ET": "🇪🇹", "FI": "🇫🇮", "FJ": "🇫🇯", "FM": "🇫🇲", "FO": "🇫🇴",
+        "FR": "🇫🇷", "GA": "🇬🇦", "GB": "🇬🇧", "GD": "🇬🇩", "GE": "🇬🇪", "GF": "🇬🇫", "GG": "🇬🇬", "GH": "🇬🇭",
+        "GI": "🇬🇮", "GL": "🇬🇱", "GM": "🇬🇲", "GN": "🇬🇳", "GP": "🇬🇵", "GQ": "🇬🇶", "GR": "🇬🇷", "GT": "🇬🇹",
+        "GU": "🇬🇺", "GW": "🇬🇼", "GY": "🇬🇾", "HK": "🇭🇰", "HM": "🇭🇲", "HN": "🇭🇳", "HR": "🇭🇷", "HT": "🇭🇹",
+        "HU": "🇭🇺", "ID": "🇮🇩", "IE": "🇮🇪", "IL": "🇮🇱", "IM": "🇮🇲", "IN": "🇮🇳", "IO": "🇮🇴", "IQ": "🇮🇶",
+        "IR": "🇮🇷", "IS": "🇮🇸", "IT": "🇮🇹", "JE": "🇯🇪", "JM": "🇯🇲", "JO": "🇯🇴", "JP": "🇯🇵", "KE": "🇰🇪",
+        "KG": "🇰🇬", "KH": "🇰🇭", "KI": "🇰🇮", "KM": "🇰🇲", "KN": "🇰🇳", "KP": "🇰🇵", "KR": "🇰🇷", "KW": "🇰🇼",
+        "KY": "🇰🇾", "KZ": "🇰🇿", "LA": "🇱🇦", "LB": "🇱🇧", "LC": "🇱🇨", "LI": "🇱🇮", "LK": "🇱🇰", "LR": "🇱🇷",
+        "LS": "🇱🇸", "LT": "🇱🇹", "LU": "🇱🇺", "LV": "🇱🇻", "LY": "🇱🇾", "MA": "🇲🇦", "MC": "🇲🇨", "MD": "🇲🇩",
+        "ME": "🇲🇪", "MF": "🇲🇫", "MG": "🇲🇬", "MH": "🇲🇭", "MK": "🇲🇰", "ML": "🇲🇱", "MM": "🇲🇲", "MN": "🇲🇳",
+        "MO": "🇲🇴", "MP": "🇲🇵", "MQ": "🇲🇶", "MR": "🇲🇷", "MS": "🇲🇸", "MT": "🇲🇹", "MU": "🇲🇺", "MV": "🇲🇻",
+        "MW": "🇲🇼", "MX": "🇲🇽", "MY": "🇲🇾", "MZ": "🇲🇿", "NA": "🇳🇦", "NC": "🇳🇨", "NE": "🇳🇪", "NF": "🇳🇫",
+        "NG": "🇳🇬", "NI": "🇳🇮", "NL": "🇳🇱", "NO": "🇳🇴", "NP": "🇳🇵", "NR": "🇳🇷", "NU": "🇳🇺", "NZ": "🇳🇿",
+        "OM": "🇴🇲", "PA": "🇵🇦", "PE": "🇵🇪", "PF": "🇵🇫", "PG": "🇵🇬", "PH": "🇵🇭", "PK": "🇵🇰", "PL": "🇵🇱",
+        "PM": "🇵🇲", "PN": "🇵🇳", "PR": "🇵🇷", "PT": "🇵🇹", "PW": "🇵🇼", "PY": "🇵🇾", "QA": "🇶🇦", "RE": "🇷🇪",
+        "RO": "🇷🇴", "RS": "🇷🇸", "RU": "🇷🇺", "RW": "🇷🇼", "SA": "🇸🇦", "SB": "🇸🇧", "SC": "🇸🇨", "SD": "🇸🇩",
+        "SE": "🇸🇪", "SG": "🇸🇬", "SH": "🇸🇭", "SI": "🇸🇮", "SJ": "🇸🇯", "SK": "🇸🇰", "SL": "🇸🇱", "SM": "🇸🇲",
+        "SN": "🇸🇳", "SO": "🇸🇴", "SR": "🇸🇷", "SS": "🇸🇸", "ST": "🇸🇹", "SV": "🇸🇻", "SX": "🇸🇽", "SY": "🇸🇾",
+        "SZ": "🇸🇿", "TC": "🇹🇨", "TD": "🇹🇩", "TF": "🇹🇫", "TG": "🇹🇬", "TH": "🇹🇭", "TJ": "🇹🇯", "TK": "🇹🇰",
+        "TL": "🇹🇱", "TM": "🇹🇲", "TN": "🇹🇳", "TO": "🇹🇴", "TR": "🇹🇷", "TT": "🇹🇹", "TV": "🇹🇻", "TZ": "🇹🇿",
+        "UA": "🇺🇦", "UG": "🇺🇬", "UM": "🇺🇲", "US": "🇺🇸", "UY": "🇺🇾", "UZ": "🇺🇿", "VA": "🇻🇦", "VC": "🇻🇨",
+        "VE": "🇻🇪", "VG": "🇻🇬", "VI": "🇻🇮", "VN": "🇻🇳", "VU": "🇻🇺", "WF": "🇼🇫", "WS": "🇼🇸", "YE": "🇾🇪",
+        "YT": "🇾🇹", "ZA": "🇿🇦", "ZM": "🇿🇲", "ZW": "🇿🇼"
+    };
+    function getFlagEmoji(countryCode) {
+    return FLAG_EMOJIS[countryCode?.toUpperCase()] || '';
+    }
 
     let bannerVisible = false;
 
@@ -134,8 +172,8 @@
                             url: `https://ipwhois.app/json/${ip}`,
                             onload: r => {
                                 const g = JSON.parse(r.responseText);
-                                const f = g.country_code ? ` <img src='https://flagcdn.com/16x12/${g.country_code.toLowerCase()}.png' style='vertical-align:middle;'>` : '';
-                                resolve(`IP : ${ip}<br>Pays : ${g.country} (${g.country_code})${f}<br>ASN : ${g.org}`);
+                                const f = getFlagEmoji(g.country_code);
+                                resolve(`IP : ${ip}<br>Pays : ${g.country} ${f} (${g.country_code})<br>ASN : ${g.org}`);
                             },
                             onerror: () => resolve(`IP : ${ip}<br>Localisation indisponible.`)
                         });
@@ -166,12 +204,9 @@ function showTools() {
         "Wayback Machine": "⏳"
     };
 
-    content.innerHTML = tools.map(t => `
-        <div style="display:flex;align-items:center;gap:6px;margin:0;">
-            <span style="font-size:16px">${emojiMap[t.name] || '🔗'}</span>
-            <a href="${t.url}" target="_blank" style="color:#6cf">${t.name}</a>
-        </div>
-    `).join('');
+    content.innerHTML = tools.map(t =>
+        `${emojiMap[t.name] || '🔗'} <a href="${t.url}" target="_blank" style="color:#6cf;text-decoration:none;">${t.name}</a>`
+    ).join('<br>');
 }
 
     function escapeHTML(str) {
