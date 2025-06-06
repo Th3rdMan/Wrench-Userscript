@@ -18,7 +18,7 @@
 // @connect      *
 // @run-at       document-end
 // @license      GPL-3.0
-// @icon         https://github.com/Th3rdMan/wrench-userscript/blob/main/wrench.png
+// @icon         https://github.com/Th3rdMan/wrench-userscript/blob/main/wrench.png?raw=true
 // @namespace    https://github.com/Th3rdMan/wrench-userscript
 // @downloadURL  https://update.greasyfork.org/scripts/538478/Wrench.user.js
 // @updateURL    https://update.greasyfork.org/scripts/538478/Wrench.meta.js
