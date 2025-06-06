@@ -37,7 +37,7 @@
 ## 📦 Installation
 
 1. Installe une extension telle que [Tampermonkey](https://www.tampermonkey.net)
-   > *(Pense à activer le mode développeur dans Tampermonkey si nécessaire)*  
+   > *(Pense à activer le mode développeur dans Tampermonkey)*  
 3. Clique ici pour installer le script : [GreasyFork – Wrench](https://greasyfork.org/fr/scripts/538478-wrench)
 
 ---
