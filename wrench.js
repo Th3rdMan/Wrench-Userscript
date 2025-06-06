@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Wrench
-// @namespace    https://github.com/Th3rdMan
+// @namespace    http://tampermonkey.net/
 // @version      2.9
 // @description  Analyse passive d’un site web : robots.txt, métadonnées, IP / DNS, commentaires HTML et outils OSINT externes.
 // @author       Th3rd
@@ -18,8 +18,10 @@
 // @connect      *
 // @run-at       document-end
 // @license      GPL-3.0
-// @downloadURL https://update.greasyfork.org/scripts/538478/Wrench.user.js
-// @updateURL https://update.greasyfork.org/scripts/538478/Wrench.meta.js
+// @icon         https://github.com/Th3rdMan/wrench-userscript/blob/main/wrench.png
+// @namespace    https://github.com/Th3rdMan/wrench-userscript
+// @downloadURL  https://update.greasyfork.org/scripts/538478/Wrench.user.js
+// @updateURL    https://update.greasyfork.org/scripts/538478/Wrench.meta.js
 // ==/UserScript==
 
 (function () {
