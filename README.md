@@ -39,8 +39,7 @@ Un outil 100 % **passif**, pensé pour les passionnés de veille, de sécurit�
 ## 📦 Installation
 
 1. Installe une extension comme [Tampermonkey](https://www.tampermonkey.net)
-2. Ouvre ce lien pour installer le script :  
-   👉 [GreasyFork – Wrench](https://greasyfork.org/fr/scripts/538478-wrench)
+2. Ouvre ce lien pour installer le script : [GreasyFork – Wrench](https://greasyfork.org/fr/scripts/538478-wrench)
 3. Navigue, clique, analyse
 
 ---
