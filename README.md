@@ -50,14 +50,14 @@
 2. **Clique sur l’icône Wrench en haut à droite**  
 ![Wrench Icon](https://github.com/Th3rdMan/wrench-userscript/blob/main/wrench.png)
 
-🦏 *Si rien n’apparaît, c’est que le site est soit minimaliste, soit bien protégé.*
-
 4. **Explore les modules proposés :**
    - `Robots.txt` → Règles d’exploration + sitemap
    - `Métadonnées` → Infos internes HTML
    - `IP / DNS` → Adresse IP + géoloc + ASN
    - `Code source` → Commentaires + e-mails
    - `Outils externes` → Ouvre les plateformes OSINT dans un nouvel onglet
+
+🦏 *Si rien n’apparaît, c’est que le site est soit minimaliste, soit bien protégé.*
 
 ---
 
