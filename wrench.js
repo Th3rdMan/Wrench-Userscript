@@ -67,7 +67,8 @@
         "YT": "🇾🇹", "ZA": "🇿🇦", "ZM": "🇿🇲", "ZW": "🇿🇼"
     };
     function getFlagEmoji(countryCode) {
-    return FLAG_EMOJIS[countryCode?.toUpperCase()] || '';
+    if (typeof countryCode !== 'string' || !countryCode) return '';
+    return FLAG_EMOJIS[countryCode.toUpperCase()] || '';
     }
 
     let bannerVisible = false;
@@ -256,11 +257,12 @@ function showComments() {
     });
 }
 
-    [
+    const buttonDefinitions = [
         ['Robots.txt', loadRobotsTxt],
         ['Métadonnées', loadMeta],
         ['IP / DNS', loadIPDNS],
         ['Code Source', showComments],
         ['Outils externes', showTools]
-    ].forEach(([label, action]) => addButton(label, action));
+    ];
+    buttonDefinitions.forEach(([label, action]) => addButton(label, action));
 })();
