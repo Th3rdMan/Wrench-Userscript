@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name         Wrench
 // @namespace    http://tampermonkey.net/
-// @version      2.9.2
+// @version      2.9.3
 // @description  Analyse passive d’un site web : robots.txt, métadonnées, IP / DNS, commentaires HTML/JS/CSS et outils OSINT externes.
 // @author       Th3rd
 // @match        *://*/*
 // @grant        GM_xmlhttpRequest
+// @grant        GM_getResourceURL
+// @resource     wrenchIcon https://raw.githubusercontent.com/Th3rdMan/Wrench-Userscript/main/wrench.png
 // @connect      ipwhois.app
 // @connect      dns.google
 // @connect      www.google.com
@@ -33,12 +35,9 @@
 
     const makeSvgIcon = svg => `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 
-    const ICON_WRENCH = makeSvgIcon(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-            <circle cx="32" cy="32" r="30" fill="#111" stroke="#00ff66" stroke-width="3"/>
-            <path d="M43.8 14.6a13.2 13.2 0 0 0-15.9 16.1L14.2 44.4a4.4 4.4 0 0 0 6.2 6.2l13.7-13.7A13.2 13.2 0 0 0 49.9 21l-8.1 8.1-6.9-1.8-1.8-6.9 10.7-5.8z" fill="#00ff66"/>
-        </svg>
-    `);
+    const ICON_WRENCH = typeof GM_getResourceURL === 'function'
+        ? GM_getResourceURL('wrenchIcon')
+        : 'https://raw.githubusercontent.com/Th3rdMan/Wrench-Userscript/main/wrench.png';
 
     const ICON_CLOSE = makeSvgIcon(`
         <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
