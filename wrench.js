@@ -35,8 +35,8 @@
         </svg>
     `)}`;
 
-    const SUSPICIOUS_RE = /\b(flag|ctf|debug|todo|fixme|secret|token|key|password|passwd|admin|internal|staging|backup|old|dev|test|hidden|private|credential|auth)\b/gi;
-    const caches = { page: null, analysis: null, robots: null, sitemap: null };
+    const SUSPICIOUS_RE = /\b(flag|ctf|debug|todo|fixme|secret|token|key|password|passwd|admin|internal|staging|backup|old|dev|test|hidden|private|credential|auth)\b/i;
+    const store = { page: null, analysis: null, robots: null, sitemap: null };
 
     function escapeHTML(str) {
         return String(str ?? '').replace(/[&<>'"]/g, c => ({
@@ -49,7 +49,19 @@
     }
 
     function highlightSuspicious(str) {
-        return escapeHTML(str).replace(SUSPICIOUS_RE, '<mark style="background:#614600;color:#ffd166;padding:0 2px;border-radius:2px;">$1</mark>');
+        return escapeHTML(str).replace(
+            /\b(flag|ctf|debug|todo|fixme|secret|token|key|password|passwd|admin|internal|staging|backup|old|dev|test|hidden|private|credential|auth)\b/gi,
+            '<mark style="background:#614600;color:#ffd166;padding:0 2px;border-radius:2px;">$1</mark>'
+        );
+    }
+
+    function safeHref(url) {
+        try {
+            const parsed = new URL(url);
+            return /^https?:$/.test(parsed.protocol) ? escapeHTML(url) : '#';
+        } catch (_) {
+            return '#';
+        }
     }
 
     function gmGet(url, timeout = 12000) {
@@ -195,7 +207,7 @@
     }
 
     async function getPageBundle() {
-        if (caches.page) return caches.page;
+        if (store.page) return store.page;
 
         const pageRes = await gmGet(document.location.href);
         if (!pageRes.ok) throw new Error('Impossible de charger le code source.');
@@ -204,12 +216,12 @@
         const doc = new DOMParser().parseFromString(source, 'text/html');
         const external = await collectExternalCode(doc);
 
-        caches.page = { source, doc, external, headers: pageRes.headers || '', url: document.location.href };
-        return caches.page;
+        store.page = { source, doc, external, headers: pageRes.headers || '', url: document.location.href };
+        return store.page;
     }
 
     async function getAnalysis() {
-        if (caches.analysis) return caches.analysis;
+        if (store.analysis) return store.analysis;
 
         const page = await getPageBundle();
 
@@ -231,10 +243,9 @@
         const endpoints = extractEndpoints(combinedSources);
         const technologies = detectTechnologies(page, endpoints);
         const suspiciousComments = comments.filter(comment => SUSPICIOUS_RE.test(comment.value));
-        SUSPICIOUS_RE.lastIndex = 0;
 
-        caches.analysis = { comments, emails, endpoints, technologies, suspiciousComments, external: page.external };
-        return caches.analysis;
+        store.analysis = { comments, emails, endpoints, technologies, suspiciousComments, external: page.external };
+        return store.analysis;
     }
 
     async function collectExternalCode(doc) {
@@ -572,13 +583,13 @@
     }
 
     async function getRobotsData() {
-        if (caches.robots) return caches.robots;
+        if (store.robots) return store.robots;
 
         const res = await gmGet(robotsUrl);
 
         if (!res.ok) {
-            caches.robots = { ok: false, status: res.status, text: '', sitemaps: [] };
-            return caches.robots;
+            store.robots = { ok: false, status: res.status, text: '', sitemaps: [] };
+            return store.robots;
         }
 
         const lines = res.text.trim().split('\n');
@@ -587,12 +598,12 @@
             .map(line => line.replace(/^Sitemap:\s*/i, '').trim())
             .filter(Boolean);
 
-        caches.robots = { ok: true, status: res.status, text: res.text, lines, sitemaps };
-        return caches.robots;
+        store.robots = { ok: true, status: res.status, text: res.text, lines, sitemaps };
+        return store.robots;
     }
 
     async function getSitemapData() {
-        if (caches.sitemap) return caches.sitemap;
+        if (store.sitemap) return store.sitemap;
 
         const robots = await getRobotsData();
         const candidates = uniqueItems([
@@ -620,13 +631,13 @@
             }
         }
 
-        caches.sitemap = {
+        store.sitemap = {
             candidates,
             sitemaps,
             totalUrls: sitemaps.reduce((sum, sitemap) => sum + sitemap.urls.length, 0)
         };
 
-        return caches.sitemap;
+        return store.sitemap;
     }
 
     async function showSummary() {
@@ -710,7 +721,7 @@
             const safeLine = escapeHTML(line);
             if (/^Sitemap:/i.test(line)) {
                 const url = line.replace(/^Sitemap:\s*/i, '').trim();
-                sitemaps.push(`<strong><u>Sitemap:</u></strong> <a href="${escapeHTML(url)}" target="_blank" style="color:#6cf">${escapeHTML(url)}</a>`);
+                sitemaps.push(`<strong><u>Sitemap:</u></strong> <a href="${safeHref(url)}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(url)}</a>`);
             } else if (/^User-agent:/i.test(line)) {
                 others.push(`<span style="color:#ff0;">${safeLine}</span>`);
             } else if (/^Disallow:/i.test(line)) {
@@ -750,7 +761,7 @@
             .map(link => {
                 const rel = link.rel || '(sans rel)';
                 const href = link.href || link.getAttribute('href') || '';
-                return `<span style="color:#ff0">${escapeHTML(rel)}</span> : <a href="${escapeHTML(href)}" target="_blank" style="color:#6cf">${escapeHTML(href)}</a>`;
+                return `<span style="color:#ff0">${escapeHTML(rel)}</span> : <a href="${safeHref(href)}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(href)}</a>`;
             });
 
         html += usefulLinks.length ? usefulLinks.join('<br>') : '<i>Aucun lien notable détecté.</i>';
@@ -914,7 +925,7 @@
             escapeHTML(shortenUrl(item.url)),
             `
                 <div style="color:#aaa;margin-bottom:4px;">${item.count} URL(s) dans le fichier, ${item.urls.length} affichée(s) max.</div>
-                ${item.urls.map(url => `<div><a href="${escapeHTML(url)}" target="_blank" style="color:#6cf">${escapeHTML(shortenUrl(url))}</a></div>`).join('')}
+                ${item.urls.map(url => `<div><a href="${safeHref(url)}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(shortenUrl(url))}</a></div>`).join('')}
             `
         )).join('');
 
@@ -940,7 +951,7 @@
         };
 
         content.innerHTML = tools.map(t =>
-            `${emojiMap[t.name] || '🔗'} <a href="${escapeHTML(t.url)}" target="_blank" style="color:#6cf;text-decoration:none;">${escapeHTML(t.name)}</a>`
+            `${emojiMap[t.name] || '🔗'} <a href="${safeHref(t.url)}" target="_blank" rel="noopener noreferrer" style="color:#6cf;text-decoration:none;">${escapeHTML(t.name)}</a>`
         ).join('<br>');
     }
 
