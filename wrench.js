@@ -57,7 +57,7 @@
 
     function safeHref(url) {
         try {
-            const parsed = new URL(url);
+            const parsed = new URL(url, document.location.href);
             return /^https?:$/.test(parsed.protocol) ? escapeHTML(url) : '#';
         } catch (_) {
             return '#';
@@ -950,9 +950,18 @@
             'Wayback Machine': '⏳'
         };
 
-        content.innerHTML = tools.map(t =>
-            `${emojiMap[t.name] || '🔗'} <a href="${safeHref(t.url)}" target="_blank" rel="noopener noreferrer" style="color:#6cf;text-decoration:none;">${escapeHTML(t.name)}</a>`
-        ).join('<br>');
+        content.textContent = '';
+        tools.forEach((t, i) => {
+            if (i > 0) content.appendChild(document.createElement('br'));
+            content.appendChild(document.createTextNode(`${emojiMap[t.name] || '🔗'} `));
+            const a = document.createElement('a');
+            a.href = safeHref(t.url);
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.style.cssText = 'color:#6cf;text-decoration:none;';
+            a.textContent = t.name;
+            content.appendChild(a);
+        });
     }
 
     const buttonDefinitions = [
