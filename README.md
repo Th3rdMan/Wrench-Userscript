@@ -1,6 +1,6 @@
 # 🛠 Wrench – Analyse passive OSINT sur navigateur
 
-![Version](https://img.shields.io/badge/Version-2.10.0-blue)
+![Version](https://img.shields.io/badge/Version-2.11.0-blue)
 ![License](https://img.shields.io/badge/License-GPLv3-teal)
 [![Install Wrench on GreasyFork](https://img.shields.io/badge/Install-GreasyFork-red.svg)](https://greasyfork.org/fr/scripts/538478-wrench)  
 [![Author: Th3rd](https://img.shields.io/badge/github-Th3rdMan-181717?logo=github)](https://github.com/Th3rdMan)
@@ -19,8 +19,9 @@ Il sert à repérer rapidement des informations utiles en OSINT léger, CTF ou v
 - 📜 **Lecture de `robots.txt`**  
   Coloration visuelle des directives `Allow`, `Disallow`, `User-agent` et affichage des `Sitemap`.
 
-- 🧠 **Extraction des métadonnées HTML**  
-  Titre de page, balises `<meta>`, liens canoniques, manifestes, icônes et stylesheets déclarées.
+- 🧠 **Extraction des métadonnées HTML (OSINT)**  
+  Titre de page et balises `<meta>` pertinentes uniquement : `generator`, `author`, `description`, `keywords`, `robots`, `googlebot`, `http-equiv`, Open Graph (`og:*`) et Twitter Card (`twitter:*`).  
+  Liens structurels : `canonical` (URL réelle / CDN), `alternate` (flux RSS, versions traduites), `manifest` (structure PWA).
 
 - 🌍 **Résolution DNS & géolocalisation IP**  
   Résolution IPv4 via DNS, pays avec drapeau, ASN et organisation associée.
