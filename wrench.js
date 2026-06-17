@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wrench
 // @namespace    http://tampermonkey.net/
-// @version      2.10.0
+// @version      2.11.0
 // @description  Analyse passive d’un site web : robots.txt, métadonnées, IP / DNS, commentaires, endpoints, technos, sitemap et outils OSINT externes.
 // @author       Th3rd
 // @match        *://*/*
@@ -35,7 +35,8 @@
         </svg>
     `)}`;
 
-    const SUSPICIOUS_RE = /\b(flag|ctf|debug|todo|fixme|secret|token|key|password|passwd|admin|internal|staging|backup|old|dev|test|hidden|private|credential|auth)\b/i;
+    const SUSPICIOUS_PATTERN = 'flag|ctf|debug|todo|fixme|secret|token|key|password|passwd|admin|internal|staging|backup|old|dev|test|hidden|private|credential|auth';
+    const SUSPICIOUS_RE = new RegExp(`\\b(${SUSPICIOUS_PATTERN})\\b`, 'i');
     const store = { page: null, analysis: null, robots: null, sitemap: null };
 
     function escapeHTML(str) {
@@ -50,7 +51,7 @@
 
     function highlightSuspicious(str) {
         return escapeHTML(str).replace(
-            /\b(flag|ctf|debug|todo|fixme|secret|token|key|password|passwd|admin|internal|staging|backup|old|dev|test|hidden|private|credential|auth)\b/gi,
+            new RegExp(`\\b(${SUSPICIOUS_PATTERN})\\b`, 'gi'),
             '<mark style="background:#614600;color:#ffd166;padding:0 2px;border-radius:2px;">$1</mark>'
         );
     }
@@ -58,7 +59,7 @@
     function safeHref(url) {
         try {
             const parsed = new URL(url, document.location.href);
-            return /^https?:$/.test(parsed.protocol) ? escapeHTML(url) : '#';
+            return /^https?:$/.test(parsed.protocol) ? parsed.href : '#';
         } catch (_) {
             return '#';
         }
@@ -721,7 +722,7 @@
             const safeLine = escapeHTML(line);
             if (/^Sitemap:/i.test(line)) {
                 const url = line.replace(/^Sitemap:\s*/i, '').trim();
-                sitemaps.push(`<strong><u>Sitemap:</u></strong> <a href="${safeHref(url)}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(url)}</a>`);
+                sitemaps.push(`<strong><u>Sitemap:</u></strong> <a href="${escapeHTML(safeHref(url))}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(url)}</a>`);
             } else if (/^User-agent:/i.test(line)) {
                 others.push(`<span style="color:#ff0;">${safeLine}</span>`);
             } else if (/^Disallow:/i.test(line)) {
@@ -769,7 +770,7 @@
         const renderedLinks = links.map(link => {
             const rel = link.rel || '(sans rel)';
             const href = link.href || link.getAttribute('href') || '';
-            return `<span style="color:#ff0">${escapeHTML(rel)}</span> : <a href="${safeHref(href)}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(href)}</a>`;
+            return `<span style="color:#ff0">${escapeHTML(rel)}</span> : <a href="${escapeHTML(safeHref(href))}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(href)}</a>`;
         });
 
         html += renderedLinks.length ? renderedLinks.join('<br>') : '<i>Aucun lien structurel détecté (canonical, alternate, manifest).</i>';
@@ -933,7 +934,7 @@
             escapeHTML(shortenUrl(item.url)),
             `
                 <div style="color:#aaa;margin-bottom:4px;">${item.count} URL(s) dans le fichier, ${item.urls.length} affichée(s) max.</div>
-                ${item.urls.map(url => `<div><a href="${safeHref(url)}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(shortenUrl(url))}</a></div>`).join('')}
+                ${item.urls.map(url => `<div><a href="${escapeHTML(safeHref(url))}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(shortenUrl(url))}</a></div>`).join('')}
             `
         )).join('');
 
