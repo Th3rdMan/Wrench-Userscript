@@ -737,13 +737,23 @@
     }
 
     function loadMeta() {
-        const meta = [...document.getElementsByTagName('meta')];
-        const links = [...document.querySelectorAll('link[rel], link[href]')];
+        const OSINT_NAME = /^(generator|author|description|keywords|robots|googlebot|referrer|copyright|language|rating|revisit-after)$/i;
+        const OSINT_PROP = /^(og:|twitter:|article:|fb:|profile:)/i;
+
+        const meta = [...document.getElementsByTagName('meta')].filter(m => {
+            const name = m.getAttribute('name') || '';
+            const prop = m.getAttribute('property') || '';
+            const httpEquiv = m.getAttribute('http-equiv') || '';
+            return OSINT_NAME.test(name) || OSINT_PROP.test(prop) || httpEquiv.length > 0;
+        });
+
+        const links = [...document.querySelectorAll('link[rel]')]
+            .filter(link => /\b(canonical|alternate|manifest)\b/i.test(link.rel || ''));
 
         let html = `<strong><u>Métadonnées :</u></strong><br>`;
         html += `<strong>Titre :</strong> ${escapeHTML(document.title || '(vide)')}<br><br>`;
 
-        html += `<strong>Meta tags :</strong><br>`;
+        html += `<strong>Meta tags OSINT :</strong><br>`;
         html += meta.length
             ? meta.map(m => {
                 const attrs = [...m.attributes]
@@ -751,20 +761,18 @@
                     .join(' ');
                 return `<code style="color:#6cf">&lt;meta ${attrs}&gt;</code>`;
             }).join('<br>')
-            : '<i>Aucune balise meta détectée.</i>';
+            : '<i>Aucune balise meta pertinente détectée.</i>';
 
         html += `<hr style="margin:10px 0;border:0;border-top:1px solid #333;">`;
-        html += `<strong>Liens utiles :</strong><br>`;
+        html += `<strong>Liens structurels :</strong><br>`;
 
-        const usefulLinks = links
-            .filter(link => /canonical|alternate|manifest|icon|stylesheet/i.test(link.rel || ''))
-            .map(link => {
-                const rel = link.rel || '(sans rel)';
-                const href = link.href || link.getAttribute('href') || '';
-                return `<span style="color:#ff0">${escapeHTML(rel)}</span> : <a href="${safeHref(href)}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(href)}</a>`;
-            });
+        const renderedLinks = links.map(link => {
+            const rel = link.rel || '(sans rel)';
+            const href = link.href || link.getAttribute('href') || '';
+            return `<span style="color:#ff0">${escapeHTML(rel)}</span> : <a href="${safeHref(href)}" target="_blank" rel="noopener noreferrer" style="color:#6cf">${escapeHTML(href)}</a>`;
+        });
 
-        html += usefulLinks.length ? usefulLinks.join('<br>') : '<i>Aucun lien notable détecté.</i>';
+        html += renderedLinks.length ? renderedLinks.join('<br>') : '<i>Aucun lien structurel détecté (canonical, alternate, manifest).</i>';
         content.innerHTML = html;
     }
 
